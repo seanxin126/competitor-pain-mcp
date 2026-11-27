@@ -1,0 +1,29 @@
+# Dependencies (reinstalled inside the image)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pids
+.npm
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Local/container config
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Docs & scratch
+README.md
+SKILL.md
+*.log
+*.tmp
+
+# Local agent/cloud config dirs
+.agents/
+.codex/
+.aws/
+.env
+.env.*
