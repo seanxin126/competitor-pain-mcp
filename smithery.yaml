@@ -1,0 +1,58 @@
+# Smithery.ai deployment configuration for competitor-pain-mcp
+# Docs: https://smithery.ai/docs/deployments/configuration
+name: competitor-pain-mcp
+version: 1.0.0
+description: >-
+  Stdio MCP server that exposes the scan_competitor_pain tool, backed by the
+  Apify Actor seanxin/b2b-buying-intent-pain-radar. Scans Hacker News, Reddit,
+  GitHub Issues and Dev.to for B2B buying/switching intent signals.
+homepage: https://apify.com/seanxin/b2b-buying-intent-pain-radar
+repository: https://github.com/seanxin126/competitor-pain-mcp
+keywords:
+  - mcp
+  - model-context-protocol
+  - apify
+  - b2b
+  - buying-intent
+  - competitor-pain
+  - lead-generation
+
+startCommand:
+  type: stdio
+
+  # Runtime launch configuration.
+  config:
+    command: node
+    args:
+      - index.js
+    env:
+      APIFY_TOKEN:
+        type: string
+        description: Apify API Token for running seanxin/b2b-buying-intent-pain-radar
+        required: true
+
+  # Smithery connection-form schema (mirrors `config.env` above) plus the
+  # mapping that turns the collected config into the process launch command.
+  configSchema:
+    type: object
+    required:
+      - apifyToken
+    properties:
+      apifyToken:
+        type: string
+        title: Apify API Token
+        description: >-
+          Apify API Token for running seanxin/b2b-buying-intent-pain-radar.
+          Create a personal access token at
+          https://apify.com/account/integrations
+        examples:
+          - apify_api_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['index.js'],
+      env: {
+        APIFY_TOKEN: config.apifyToken,
+      },
+    })
